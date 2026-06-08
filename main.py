@@ -10,9 +10,7 @@ from dotenv import load_dotenv
 # Carrega as variáveis de ambiente do arquivo .env
 load_dotenv()
 
-# ==========================================
-# 1. FUNÇÕES DO MONGODB
-# ==========================================
+# FUNÇÕES DO MONGODB
 def conectar_mongodb():
     """Conecta ao MongoDB Atlas e retorna a referência do banco 'desafio_nosql'."""
     uri = os.getenv("MONGO_URI")
@@ -54,9 +52,8 @@ def remover_por_categoria(db, categoria):
     print(f"-> {resultado.deleted_count} produto(s) da categoria '{categoria}' removido(s).")
 
 
-# ==========================================
-# 2. FUNÇÕES DO REDIS
-# ==========================================
+
+# FUNÇÕES DO REDIS
 def conectar_redis():
     """Conecta ao Redis Cloud e retorna a instância."""
     host = os.getenv("REDIS_HOST")
@@ -93,9 +90,8 @@ def operacoes_basicas_redis(r):
         print(f"   {log}")
 
 
-# ==========================================
-# 3. CASO INTEGRADO (CACHE COM REDIS)
-# ==========================================
+
+# CASO INTEGRADO (CACHE COM REDIS)
 def buscar_produto_com_cache(db, r, nome_produto):
     """Busca o produto no Redis; se não achar, busca no Mongo e salva no Redis."""
     chave_redis = f"produto:{nome_produto}"
@@ -120,9 +116,8 @@ def buscar_produto_com_cache(db, r, nome_produto):
         return None
 
 
-# ==========================================
+
 # EXECUÇÃO PRINCIPAL
-# ==========================================
 if __name__ == "__main__":
     db = conectar_mongodb()
     r = conectar_redis()
